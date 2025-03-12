@@ -1,5 +1,5 @@
 # CGT_CWK
-Coursework for COMP34120
+Coursework for COMP34612
 
 ## Possible Approaches
 ### SGD
