@@ -172,3 +172,13 @@ cython_debug/
 
 # PyPI configuration file
 .pypirc
+
+constants.py
+data.xlsx
+engine.py
+followers.py
+gui.py
+excel.py
+base_follower.py
+/pyarmor_runtime_000000
+.comp34612/
