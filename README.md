@@ -20,11 +20,20 @@ w/c 21/04: Presentation prep + optimisation
 w/c 28/04: Final checks (code done)
 
 ## Workload Division:
-Max: Multiple-Regression Agent
+Max: Multiple-Regression Agent 
+
 Alex: MLP
+
 Ben: SGD
+
 Jonah: Lit Review
 
 
 Presentations: 28th April - 2nd May
 Code Submission: 2nd May 18:00
+
+## Images
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/3d_graph.png)
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/leader_vs_follower.png)
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/follower_mk1.png)
+
