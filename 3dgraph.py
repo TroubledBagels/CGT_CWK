@@ -10,7 +10,7 @@ f1m = pd.read_excel(xls, 'Follower_Mk1')
 f2m = pd.read_excel(xls, 'Follower_Mk2')
 f3m = pd.read_excel(xls, 'Follower_Mk3')
 
-data = f1m
+data = f3m
 
 # Create a 3D graph with axes: Leader price, iteration, Follower price
 t = [i for i in range(1, 101)]
@@ -23,16 +23,16 @@ plt.scatter(t, follower_price, label="Follower's Price")
 plt.xlabel("Iteration")
 plt.ylabel("Price")
 plt.legend()
-plt.title("Follower Mk1")
-plt.savefig("comp34612/follower_mk1.png")
+plt.title("Follower Mk2")
+plt.savefig("comp34612/follower_mk3.png")
 
 # Plot leader price vs follower price on new graph
 plt.clf()
 plt.scatter(leader_price, follower_price)
 plt.xlabel("Leader Price")
 plt.ylabel("Follower Price")
-plt.title("Leader Price vs Follower Price")
-plt.savefig("comp34612/leader_vs_follower.png")
+plt.title("Leader Price vs Follower Price FM3")
+plt.savefig("comp34612/fm3_leader_vs_follower.png")
 
 plt.clf()
 fig = plt.figure()
@@ -42,8 +42,9 @@ ax.scatter(leader_price, t, follower_price)
 ax.set_xlabel("Leader Price")
 ax.set_ylabel("Iteration")
 ax.set_zlabel("Follower Price")
+ax.set_title("3D Graph of Leader Price, Iteration, and Follower Price FM3")
 
-fig.savefig("comp34612/3d_graph.png")
+fig.savefig("comp34612/fm3_3d_graph.png")
 
 plt.show()
 

@@ -33,7 +33,10 @@ Presentations: 28th April - 2nd May
 Code Submission: 2nd May 18:00
 
 ## Images
-![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/3d_graph.png)
-![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/leader_vs_follower.png)
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/fm1_3d_graph.png)
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/fm1_leader_vs_follower.png)
 ![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/follower_mk1.png)
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/fm3_3d_graph.png)
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/fm3_leader_vs_follower.png)
+![alt text](https://github.com/TroubledBagels/CGT_CWK/blob/ben/follower_mk3.png)
 
