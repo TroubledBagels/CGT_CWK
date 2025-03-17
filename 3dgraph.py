@@ -23,7 +23,7 @@ plt.scatter(t, follower_price, label="Follower's Price")
 plt.xlabel("Iteration")
 plt.ylabel("Price")
 plt.legend()
-plt.title("Follower Mk2")
+plt.title("Follower Mk3")
 plt.savefig("comp34612/follower_mk3.png")
 
 # Plot leader price vs follower price on new graph
