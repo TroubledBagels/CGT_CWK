@@ -70,7 +70,17 @@ class regressionPredictor:
     
     def convertTensorToList(self, tensor:torch.Tensor):
         return tensor.view(-1).tolist()
-        
+    
+    def getDifferentiatedFormula(self, follower_number:int):
+        coefficients = self.models[follower_number].linear.bias.detach().item() + self.models[follower_number].linear.weight.detach().numpy().flatten()
+        differentiated_coefficients = coefficients[1:]
+
+        # can convert return type as needed for maths
+        terms = [f"{differentiated_coefficients[i]}x^{i}" if i > 0 else f"{differentiated_coefficients[i]}" for i in range(len(differentiated_coefficients))]
+        return " + ".join(terms)
+    
+    def findGlobalMaxima(self, follower_number:int):
+        print("TODO max")
 
 
 if __name__ == "__main__":
@@ -81,4 +91,6 @@ if __name__ == "__main__":
     follower_number = 1
     df = pd.read_excel("data.xlsx",sheet_name=f"Follower_Mk{follower_number}")
     x = torch.tensor(df["Leader's Price"].values, dtype=torch.float32).view(-1, 1)
-    print(regression_predictor.convertTensorToList(regression_predictor.getPredictions(follower_number,x)))
+    print(f"Example predictions: {regression_predictor.convertTensorToList(regression_predictor.getPredictions(follower_number,x))[:5]}\n")
+
+    print(f"Differentiated formula: {regression_predictor.getDifferentiatedFormula(1)}")
