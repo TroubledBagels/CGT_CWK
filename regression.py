@@ -74,6 +74,7 @@ class regressionPredictor:
     def getDifferentiatedFormula(self, follower_number:int):
         coefficients = self.models[follower_number].linear.bias.detach().item() + self.models[follower_number].linear.weight.detach().numpy().flatten()
         differentiated_coefficients = coefficients[1:]
+        differentiated_coefficients = [coefficient*i for i,coefficient in enumerate(differentiated_coefficients)]
 
         # can convert return type as needed for maths
         terms = [f"{differentiated_coefficients[i]}x^{i}" if i > 0 else f"{differentiated_coefficients[i]}" for i in range(len(differentiated_coefficients))]
