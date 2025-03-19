@@ -105,7 +105,7 @@ plt.clf()
 plt.scatter(follower_price, profit_list)
 plt.xlabel("Follower Price")
 plt.ylabel("Profit")
-plt.title("Follower Price vs Demand FM1")
+plt.title("Follower Price vs Profit FM1")
 plt.savefig("graphs/fp_profit_fm1.png")
 
 plt.clf()
@@ -123,6 +123,17 @@ plt.xlabel("Iteration")
 plt.ylabel("Delta LP")
 plt.title("Iteration vs Delta LP FM1")
 plt.savefig("graphs/delta_lp_fm1.png")
+
+fig2 = plt.figure()
+ax2 = fig2.add_subplot(111, projection='3d')
+
+ax2.scatter(leader_price, follower_price, profit_list)
+ax2.set_xlabel("Leader Price")
+ax2.set_ylabel("Follower Price")
+ax2.set_zlabel("Profit")
+ax2.set_title("3D Graph of Leader Price, Follower Price, and Profit FM1")
+
+fig2.savefig("graphs/fm1_lp_fp_prof_3d_graph.png")
 plt.show()
 
 print(f"LP-FP Correlation: {np.corrcoef(leader_price, follower_price)[0, 1]}")
