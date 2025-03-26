@@ -2,16 +2,17 @@ import numpy as np
 from scipy.optimize import minimize
          
 class StackelbergSolver:
-    def __init__(self, follower_model, profit_function): 
+    def __init__(self, follower_model): 
 
         self.follower_model = follower_model #assumes this model has a .predict() that takes a numpy array
-        self.profit_function = profit_function # in form (leader_x, follower_x)
-        self.x_bounds = (1,3) #seems sensible for now
+        self.x_bounds = (1,2) #this changes depending on model
 
-    def get_profit(self, x):
+    def get_profit(self, leader_x):
 
-        x_follower = self.follower_model.predict(np.array([x]))[0]
-        return self.profit_function(x, x_follower)
+        follower_x = self.follower_model.predict(np.array([leader_x]))[0] 
+        sales = 2 - leader_x + (0.3*follower_x)
+        profit = (leader_x - 1) * sales
+        return profit
 
     def solve(self, x0 = None):
    
@@ -32,11 +33,5 @@ if __name__ == "__main__":
     
     follower_model = LinearRegression().fit(df["Leader's Price"].values.reshape(-1, 1), df["Follower's Price"].values)
 
-    def profit_function(leader_x, follower_x):
-        # formula from instruciton sheet, may be wrong
-        sales = 2 - leader_x + (0.3*follower_x)
-        profit = (leader_x - 1) * sales
-        return profit
-
-    solver = StackelbergSolver(follower_model, profit_function)
-    print(f"Best X is: {solver.solve(1.7)}")
+    solver = StackelbergSolver(follower_model)
+    print(f"Best X is: {solver.solve()}")
