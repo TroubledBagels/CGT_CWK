@@ -93,7 +93,7 @@ class RegressionLeader(Leader):
 
     def get_profit(self, leader_x, date):
 
-        follower_x = self.model.predict(np.array([leader_x[0],date]))[0] 
+        follower_x = self.model.predict(np.array([[leader_x[0],date]]))[0] 
         sales = 2 - leader_x + (0.3*follower_x)
         profit = (leader_x - 1) * sales
         return -profit #as we are minimizing
