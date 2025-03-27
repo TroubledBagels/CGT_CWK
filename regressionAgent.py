@@ -85,6 +85,9 @@ class RegressionLeader(Leader):
     
     def start_simulation(self):
 
+        self.leader_price_history = []
+        self.follower_price_history = []
+
         #load past 100 days of example data
         for i in range(1,101):
             leaderPrice, followerPrice = self.get_price_from_date(i)
