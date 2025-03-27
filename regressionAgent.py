@@ -73,22 +73,29 @@ class RegressionLeader(Leader):
         super().__init__(name, engine)
     
     def new_price(self, date:int):
+        
+        # if applicable, add previous run to our dataset
+        if date > 101:
+            leaderPrice, followerPrice = self.get_price_from_date(date-1)
+            self.leader_price_history.append(leaderPrice)
+            self.follower_price_history.append(followerPrice)
 
+        # use linear regression on (leader_price, date) to model follower function
+        # use date too since some models change reaction over time
         dates = [i for i in range(1,(len(self.leader_price_history)+1))]
-        self.model = LinearRegression().fit(np.column_stack((self.leader_price_history, dates)), self.follower_price_history) #takes price AND date as features
+        self.model = LinearRegression().fit(np.column_stack((self.leader_price_history, dates)), self.follower_price_history)
 
-        result = minimize(self.get_profit, x0=self.leader_price_history[-1], args=date, bounds=[(1,100)]) #TODO change bounds depending on follower
-
-        #TODO append result of current day to history, to use in the following days
-
+        # find the leader price that maximses profit, based off the estimate follower reaction
+        result = minimize(self.get_profit, x0=self.leader_price_history[-1], args=date, bounds=[(1,2)]) #TODO change bounds depending on follower
         return result.x[0]
     
     def start_simulation(self):
 
+        # reset to avoid using data from last simulation
         self.leader_price_history = []
         self.follower_price_history = []
 
-        #load past 100 days of example data
+        #load the given 100 days of example data
         for i in range(1,101):
             leaderPrice, followerPrice = self.get_price_from_date(i)
             self.leader_price_history.append(leaderPrice)
@@ -96,7 +103,8 @@ class RegressionLeader(Leader):
 
     def get_profit(self, leader_x, date):
 
+        # formulas from instruction sheet
         follower_x = self.model.predict(np.array([[leader_x[0],date]]))[0] 
         sales = 2 - leader_x + (0.3*follower_x)
         profit = (leader_x - 1) * sales
-        return -profit #as we are minimizing
+        return -profit #return negative as we minimize not maximise profit function
