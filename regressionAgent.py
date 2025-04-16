@@ -64,6 +64,10 @@ class Leader:
 from sklearn.linear_model import LinearRegression
 from scipy.optimize import minimize
 import numpy as np
+from sklearn.model_selection import cross_val_score
+from sklearn.preprocessing import PolynomialFeatures
+from sklearn.pipeline import make_pipeline
+
 class RegressionLeader(Leader):
 
     leader_price_history = []
@@ -80,13 +84,28 @@ class RegressionLeader(Leader):
             self.leader_price_history.append(leaderPrice)
             self.follower_price_history.append(followerPrice)
 
-        # use linear regression on (leader_price, date) to model follower function
+        # use multi regression on (leader_price, date) to model follower function
         # use date too since some models change reaction over time
         dates = [i for i in range(1,(len(self.leader_price_history)+1))]
-        self.model = LinearRegression().fit(np.column_stack((self.leader_price_history, dates)), self.follower_price_history)
+        x = np.column_stack((self.leader_price_history, dates))
+        y = self.follower_price_history
 
+        # try different degrees and pick best
+        max_degree = 4
+        best_loss = -100000
+        best_model = None
+        for degree in range(1, max_degree+1): 
+            model = make_pipeline(PolynomialFeatures(degree), LinearRegression())
+            losses = cross_val_score(model, x, y)
+            avg_loss = np.mean(losses)
+            if avg_loss > best_loss:
+                best_loss = avg_loss
+                best_model = model
+
+        self.model = best_model.fit(x,y)
+        
         # find the leader price that maximses profit, based off the estimate follower reaction
-        result = minimize(self.get_profit, x0=self.leader_price_history[-1], args=date, bounds=[(1,2)]) #TODO change bounds depending on follower
+        result = minimize(self.get_profit, x0=self.leader_price_history[-1], args=date, bounds=[(1,2)])     #TODO change bounds depending on follower
         return result.x[0]
     
     def start_simulation(self):
