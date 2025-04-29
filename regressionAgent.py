@@ -78,7 +78,7 @@ class RegressionLeader(Leader):
     
     def new_price(self, date:int):
         
-        # if applicable, add previous run to our dataset
+        # if applicable, add previous day to our dataset
         if date > 101:
             leaderPrice, followerPrice = self.get_price_from_date(date-1)
             self.leader_price_history.append(leaderPrice)
@@ -102,6 +102,7 @@ class RegressionLeader(Leader):
                 best_loss = avg_loss
                 best_model = model
 
+        # fit best degree to the dataset
         self.model = best_model.fit(x,y)
         
         # find the leader price that maximses profit, based off the estimate follower reaction
